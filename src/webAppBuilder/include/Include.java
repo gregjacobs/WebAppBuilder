@@ -6,8 +6,6 @@ import org.json.*;
 
 /**
  * Represents an include directive that the user can provide.
- * 
- * @author Greg
  */
 public abstract class Include {
 	
