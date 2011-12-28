@@ -145,9 +145,7 @@ directory, use Tree). Keys:
 
 Note that all paths are forward slash (/) separated in the build.json file, regardless of operating system.
 
-To include the files that the build.json file resides in using a directory/tree directive, use "./"
-
-For Example:
+To include the files that the build.json file resides in using a directory/tree directive, use `"./"`. For Example:
 
     { tree: "./" }
 
