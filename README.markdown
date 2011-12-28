@@ -20,7 +20,7 @@ There is no real "installation" per se; all you need to do is run the WebAppBuil
 
 You will need Java installed though to run the jar. You most likely already have it, but in case you don't, you can get it at [http://java.com/en/download/manual.jsp](http://java.com/en/download/manual.jsp). 
 
-If you get a "command not found" error when you type `java` in the command prompt, you need to set up your PATH variable. Here is a nice blog post about how to do that on Windows: [http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html](http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html). (Note: you shouldn't need to worry about setting the CLASS variable.) After you set the PATH variable, you may need to close and reopen any command prompt windows that you currently have open.
+If you get a "command not found" error when you type `java` in the command prompt, you need to set up your PATH variable. Here is a nice blog post about how to do that on Windows: [http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html](http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html). (Note: you shouldn't need to worry about setting the CLASSPATH variable.) After you set the PATH variable, you may need to close and reopen any command prompt windows that you currently have open.
 
 
 ## Usage
