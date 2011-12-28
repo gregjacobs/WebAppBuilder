@@ -6,7 +6,7 @@ public class BuildOptions {
 	private Boolean debugOnly;
 	private String debugSuffix;
 	private Boolean minifyOnly;
-    private String minifySuffix;
+	private String minifySuffix;
 	private Boolean verbose;
 	
 	public BuildOptions() {}
