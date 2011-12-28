@@ -64,6 +64,10 @@ public abstract class Package {
 	
 	/**
 	 * Retrieves the combined (concatenated) content of all of the package's files.
+	 * 
+	 * @return
+	 * @throws FileNotFoundException If a file specified by an include directive is not found.
+	 * @throws IOException If there is an error reading a file.
 	 */
 	public String getCombinedContents() throws FileNotFoundException, IOException {
 		if( combinedFileContents != null ) {
@@ -112,6 +116,7 @@ public abstract class Package {
 	 * 
 	 * @param combinedContents The combined contents of the files in the package.
 	 * @return 
+	 * @throws IOException If there is an error creating the minified contents.
 	 */
 	public abstract String createMinifiedContents( String combinedContents ) throws IOException;
 	
@@ -123,6 +128,7 @@ public abstract class Package {
 	 * @param pkgJSON The JSONObject representation of the package.
 	 * @param buildOptions The configuration options for this build.
 	 * @return
+	 * @throws FileNotFoundException
 	 * @throws JSONException If there is an error parsing the JSON.
 	 * @throws FileFormatException If the format of the build.json file is incorrect.
 	 */
