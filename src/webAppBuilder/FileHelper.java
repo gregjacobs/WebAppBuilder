@@ -14,6 +14,7 @@ public class FileHelper {
 	static public String getContents( File aFile ) throws FileNotFoundException, IOException {
 		//...checks on aFile are elided
 		StringBuilder contents = new StringBuilder();
+		String lineSeparator = System.getProperty( "line.separator" );
 
 		//use buffering, reading one line at a time
 		//FileReader always assumes default encoding is OK!
@@ -28,7 +29,7 @@ public class FileHelper {
 			 */
 			while( (line = input.readLine()) != null ) {
 				contents.append( line );
-				contents.append( System.getProperty( "line.separator" ) );
+				contents.append( lineSeparator );
 			}
 		} finally {
 			input.close();
