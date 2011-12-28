@@ -1,11 +1,11 @@
 {
-	"projectName": "Example",
-	"licenseText": "Example Library\nCopyright(c) 2011 Example Creator.\nMIT Licensed. http://www.opensource.org/licenses/mit-license.php",
-	"pkgs": [
+	projectName: "Example",
+	licenseText: "Example Library\nCopyright(c) 2011 Example Creator.\nMIT Licensed. http://www.opensource.org/licenses/mit-license.php",
+	pkgs: [
 		{
-			"name": "Example JS",
-			"filename": "example.js",
-			"includes": [
+			name: "Example JS",
+			filename: "example.js",
+			includes: [
 				{ file: "example/file2.js" },
 				{ file: "example/nested/nested2.js" },
 				{ tree: "example/" }
@@ -13,9 +13,9 @@
 		},
 
 		{
-			"name": "Example CSS",
-			"filename": "example.css",
-			"includes": [
+			name: "Example CSS",
+			filename: "example.css",
+			includes: [
 				{ tree: "example/" }
 			]
 		}
