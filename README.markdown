@@ -101,18 +101,18 @@ Can be one of 3 types:
 
 1) File include. Keys:
 
-   - file:      A relative path to a particular file that should be included.
+   - **file**:      A relative path to a particular file that should be included.
 
 2) Directory include, which is a single, non-recursed directory. (For a recursed
 directory, use Tree). Keys:
 
-   - directory: A relative path to a directory of files that should be included.
+   - **directory**: A relative path to a directory of files that should be included.
                 The file extension of the files that are included from the directory 
                 will match the package's file extension.
 
 3) Tree include, which is a directory, and all of its subdirectories. Keys:
 
-   - tree:      A relative path to a directory of files which itself, and all of its
+   - **tree**:      A relative path to a directory of files which itself, and all of its
                 subdirectories should be included. The file extension of the files 
                 that are included will match the package's file extension.
 
