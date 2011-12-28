@@ -10,14 +10,6 @@ import org.json.*;
 public abstract class Include {
 	
 	/**
-	 * Retrieves the list of files for the include directive.
-	 * 
-	 * @return 
-	 */
-	public abstract Collection<File> getFiles();
-	
-	
-	/**
 	 * Factory method to create the correct {@link Include} directive class for the given
 	 * JSON data.
 	 * 
@@ -41,4 +33,13 @@ public abstract class Include {
 			return null;
 		}
 	}
+	
+	
+	/**
+	 * Retrieves the list of files for the include directive.
+	 * 
+	 * @return 
+	 */
+	public abstract Collection<File> getFiles();
+	
 }

@@ -19,6 +19,32 @@ public class Project {
 	
 	
 	/**
+	 * Creates a Project based on a build.json configuration file on the system.
+	 * 
+	 * @param projectFile
+	 * @param buildOptions
+	 * @return
+	 * @throws Exception 
+	 */
+	public static Project fromFile( File projectFile, BuildOptions buildOptions ) throws Exception {
+		JSONObject projJSON = new JSONObject( FileHelper.getContents( projectFile ) );
+		
+		String name = projJSON.optString( "projectName" );
+		String licenseText = projJSON.optString( "licenseText" );
+		List<Package> pkgs = new ArrayList<Package>();
+		
+		// Create the Project's Packages
+		JSONArray pkgsArr = projJSON.getJSONArray( "pkgs" );
+		for( int i = 0, len = pkgsArr.length(); i < len; i++ ) {
+			Package pkg = Package.fromJSON( pkgsArr.getJSONObject( i ), buildOptions );
+			pkgs.add( pkg );
+		}
+		
+		return new Project( name, licenseText, pkgs, buildOptions );
+	}
+	
+	
+	/**
 	 * Creates a new Project. A Project encapsulates {@link Package Packages}, and {@link Package Packages}
 	 * encapsulate {@link Include Include Directives}.
 	 * 
@@ -74,29 +100,4 @@ public class Project {
 		return headerBuilder.toString();
 	}
 	
-	
-	/**
-	 * Creates a Project based on a build.json configuration file on the system.
-	 * 
-	 * @param projectFile
-	 * @param buildOptions
-	 * @return
-	 * @throws Exception 
-	 */
-	public static Project fromFile( File projectFile, BuildOptions buildOptions ) throws Exception {
-		JSONObject projJSON = new JSONObject( FileHelper.getContents( projectFile ) );
-		
-		String name = projJSON.optString( "projectName" );
-		String licenseText = projJSON.optString( "licenseText" );
-		List<Package> pkgs = new ArrayList<Package>();
-		
-		// Create the Project's Packages
-		JSONArray pkgsArr = projJSON.getJSONArray( "pkgs" );
-		for( int i = 0, len = pkgsArr.length(); i < len; i++ ) {
-			Package pkg = Package.fromJSON( pkgsArr.getJSONObject( i ), buildOptions );
-			pkgs.add( pkg );
-		}
-		
-		return new Project( name, licenseText, pkgs, buildOptions );
-	}
 }
