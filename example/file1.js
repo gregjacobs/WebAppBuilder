@@ -1,0 +1,1 @@
+function myFn1() { alert( 1 ); }

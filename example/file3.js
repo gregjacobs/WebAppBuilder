@@ -1,0 +1,1 @@
+function myFn3() { alert( 3 ); }

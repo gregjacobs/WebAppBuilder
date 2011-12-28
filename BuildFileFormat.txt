@@ -1,0 +1,34 @@
+The build.json File Format is a JSON encoded configuration file for managing JS & CSS 
+project builds.
+
+The top-level keys are:
+- projectName:  String describing the project
+- licenseText:  String specifying the header of all .js and .css, use \n for
+                newlines.
+- pkgs:         An array of `Package Descriptors`
+
+
+Package Descriptors:
+- name:         String describing the package 
+- filename:     String specifying the file name to create. Can be a full path
+                from the output directory specified on the command line.
+                Ex: "build.js"
+- includes:     An array of `Include Directives` which need to be included in this
+                package.
+
+
+Include Directives. Can be one of 3 types:
+
+1) File include. Keys:
+- file:         A relative path to a particular file that should be included.
+
+2) Directory include, which is a single, non-recursed directory. (For a recursed
+directory, use Tree). Keys:
+- directory     A relative path to a directory of files that should be included.
+                The file extension of the files that are included from the directory 
+                will match the package's file extension.
+
+3) Tree include, which is a directory, and all of its subdirectories. Keys:
+- tree:         A relative path to a directory of files which itself, and all of its
+                subdirectories should be included. The file extension of the files 
+                that are included will match the package's file extension.

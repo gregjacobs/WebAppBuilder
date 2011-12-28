@@ -1,0 +1,1 @@
+function nested1() { alert( 'nested1' ); }
