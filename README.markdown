@@ -5,13 +5,22 @@ WebAppBuilder is a JavaScript and CSS build tool, which can combine (concatenate
 
 This project was originally based on Sencha's JSBuilder2 tool (http://extjs.com/products/jsbuilder/). The original JSBuilder2 required that each and every JavaScript and CSS file be placed into the manifest (a .jsb2 file, similar to this project's build.json), and everytime a new file was added, the manifest had to be edited. 
 
-I had originally intended to simply add the feature for managing dependent files with directory includes into JSBuilder2, but after going over the original code, I decided to rewrite it entirely from top to bottom. 
+I had originally intended to simply add the feature for managing dependent files with directory includes into JSBuilder2, but after going over the original code, I decided to rewrite it entirely top to bottom. 
 
-Because of this full rewrite (and the fact that JSBuilder2 wasn't on github and I couldn't fork it for the changes), I decided to make a new project entirely which is based on the original idea, but includes complete reorganization, simplification, and added features. The original JSBuilder2 project was fairly specific for the ExtJS build process, whereas this project aims to be generalized. And because JSBuilder2 seems to be replaced by JSBuilder3 for ExtJS, there is very little chance that the JSBuilder2 line will receive any updates from Sencha, which is another reason for starting a new project. The original source for JSBuilder2 is still included in this project however, under lib/com/extjs/.
+Because of this full rewrite, I decided to make a new project entirely which is based on the original idea, but includes complete reorganization, simplification, and added features. It is also much faster than the JSBuilder2 implementation, which did a lot of unnecessary intermediate file operations. The original JSBuilder2 project was also fairly specific for the ExtJS build process, whereas this project aims to be generalized. And because JSBuilder2 seems to be replaced by JSBuilder3 for ExtJS, there is very little chance that the JSBuilder2 line will receive any updates from Sencha, which is another reason for starting a new project. The original source for JSBuilder2 is still included in this project however, under lib/com/extjs/.
 
-The main reason for this project in general however is that I could not find any static build tool that provided dependency management, while also allowing the inclusion of a directory. It seemed you either could include all .js files in a directory (in whichever order the directory listing would provide), or you had to include them each manually, one at a time to be in the correct order. I personally liked the approach that the Ruby project [Sprockets](https://github.com/sstephenson/sprockets) had taken for JavaScript dependency management, using include/require "directives", so I decided to create something similar that didn't need to be served by a Rails project, or a server at all. Just a simple, Java based build tool. 
+The main reason for this project in general though was that I could not find any static build tool that provided dependency management, while also allowing the inclusion of a directory. It seemed you either could include all .js files in a directory (in whichever order the directory listing would provide), or you had to include them each manually, one at a time to be in the correct order. I personally liked the approach that the Ruby project [Sprockets](https://github.com/sstephenson/sprockets) had taken for JavaScript dependency management, using include/require "directives", so I decided to create something similar that didn't need to be served by a Rails project, or a server at all. Just a simple, Java based build tool that could build the files. 
 
 Oh, I also named it "Web App Builder", because it does not only build JavaScript, it builds CSS as well. I also plan on adding support for SASS in the future, probably using JRuby.
+
+
+## Installation
+
+There is no real "installation" per se; all you need to do is run the WebAppBuilder.jar file from the command line. However, I would recommend copying the WebAppBuilder.jar file into the directory of your project, for both ease of use, and to allow others to build your project if you share it as well.
+
+You will need Java installed though to run the jar. You most likely already have it, but in case you don't, you can get it at [http://java.com/en/download/manual.jsp](http://java.com/en/download/manual.jsp). 
+
+If you get a "command not found" error when you type `java` in the command prompt, you need to set up your PATH variable. Here is a nice blog post about how to do that on Windows: [http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html](http://bharatsoft.blogspot.com/2010/08/setting-path-and-classpath-in-javahow.html). (Note: you shouldn't need to worry about setting the CLASS variable.) After you set the PATH variable, you may need to close and reopen any command prompt windows that you currently have open.
 
 
 ## Usage
@@ -64,16 +73,16 @@ To try the overly simple example build, check out this project, and then do:
 
 
 
-## Build.json File Format
-The build.json File Format is a JSON encoded configuration file for managing JS & CSS 
-project builds.
+## The build.json File
+The build.json file format is a JSON encoded configuration file which describes
+which files should be built.
 
 #### The top-level keys are:
 
 - projectName:  String describing the project
 - licenseText:  String specifying the header of all .js and .css, use \n for
                 newlines.
-- pkgs:         An array of `Package Descriptors`
+- pkgs:         An array of **Package Descriptors**
 
 
 #### Package Descriptors:
@@ -82,11 +91,13 @@ project builds.
 - filename:     String specifying the file name to create. Can be a full path
                 from the output directory specified on the command line.
                 Ex: "build.js"
-- includes:     An array of `Include Directives` which need to be included in this
+- includes:     An array of **Include Directives** which need to be included in this
                 package.
 
 
-#### Include Directives. Can be one of 3 types:
+#### Include Directives:
+
+Can be one of 3 types:
 
 1) File include. Keys:
 
@@ -107,15 +118,15 @@ directory, use Tree). Keys:
 
 
 
-## Example build.json, which lists a few files that are dependencies before including an entire tree of files:
+### Example build.json, which lists a few files that are dependencies before including an entire tree of files:
 	{
-		"projectName": "Example",
-		"licenseText": "Example Library\nCopyright(c) 2011 Example Creator.\nMIT Licensed. http://www.opensource.org/licenses/mit-license.php",
-		"pkgs": [
+		projectName: "Example",
+		licenseText: "Example Library\nCopyright(c) 2011 Example Creator.\nMIT Licensed. http://www.opensource.org/licenses/mit-license.php",
+		pkgs: [
 			{
-				"name": "Example JS",
-				"filename": "example.js",
-				"includes": [
+				name: "Example JS",
+				filename: "example.js",
+				includes: [
 					{ file: "example/file2.js" },
 					{ file: "example/nested/nested2.js" },
 					{ tree: "example/" }
@@ -123,15 +134,22 @@ directory, use Tree). Keys:
 			},
 
 			{
-				"name": "Example CSS",
-				"filename": "example.css",
-				"includes": [
+				name: "Example CSS",
+				filename: "example.css",
+				includes: [
 					{ tree: "example/" }
 				]
 			}
 		]
 	}
 
+Note that all paths are forward slash (/) separated in the build.json file, regardless of operating system.
+
+To include the files that the build.json file resides in using a directory/tree directive, use "./"
+
+For Example:
+
+    { tree: "./" }
 
 
 WebAppBuilder uses the following libraries
