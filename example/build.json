@@ -6,9 +6,9 @@
 			name: "Example JS",
 			filename: "example.js",
 			includes: [
-				{ file: "example/file2.js" },
-				{ file: "example/nested/nested2.js" },
-				{ tree: "example/" }
+				{ file: "file2.js" },
+				{ file: "nested/nested2.js" },
+				{ tree: "./" }
 			]
 		},
 
@@ -16,7 +16,7 @@
 			name: "Example CSS",
 			filename: "example.css",
 			includes: [
-				{ tree: "example/" }
+				{ tree: "./" }
 			]
 		}
 	]

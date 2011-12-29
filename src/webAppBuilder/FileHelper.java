@@ -4,7 +4,7 @@ import java.util.*;
 import java.io.*;
 
 public class FileHelper {
-	
+
 	/**
 	 * Fetch the entire contents of a text file, and return it in a String.
 	 * This style of implementation throws Exceptions to the caller.
@@ -53,7 +53,7 @@ public class FileHelper {
 		if( aFile == null ) {
 			throw new IllegalArgumentException( "File should not be null." );
 		}
-		
+
 		Writer output = new BufferedWriter( new FileWriter( aFile ) );
 		try {
 			output.write( aContents ); // FileWriter always assumes default encoding is OK!
@@ -61,15 +61,15 @@ public class FileHelper {
 			output.close();
 		}
 	}
-	
-	
+
+
 	/**
-	 * Given a filename or pathname string, adds the given suffix before the file extension, 
+	 * Given a filename or pathname string, adds the given suffix before the file extension,
 	 * and returns the new string.
-	 * 
+	 *
 	 * @param filename
 	 * @param suffix
-	 * @return 
+	 * @return
 	 */
 	public static String insertFileSuffix( String filename, String suffix ) {
 		int endOfDot = filename.lastIndexOf( "." );
@@ -78,40 +78,40 @@ public class FileHelper {
 		}
 		return filename.substring( 0, endOfDot ) + suffix + filename.substring( endOfDot );
 	}
-	
-	
+
+
 	/**
 	 * Lists the files in a given directory, with an optional filter, and the option of recursing into
 	 * the subdirectories.
-	 * 
+	 *
 	 * @param directory The directory to list files from.
 	 * @param filter A filter to use to only accept certain files. Set to null for no filter.
 	 * @param recurse True to recurse the directory's subdirectories.
-	 * @return 
+	 * @return The Collection of files.
 	 */
 	public static Collection<File> listDirectoryFiles( File directory, FilenameFilter filter, boolean recurse ) {
 		List<File> files = new ArrayList<File>();
 
 		// Get files / directories in the directory
 		File[] entries = directory.listFiles();
-		
+
 		// Go over entries
 		for( File entry : entries ) {
-			// If there is no filter or the filter accepts the 
+			// If there is no filter or the filter accepts the
 			// file / directory, add it to the list
 			if( filter == null || filter.accept( directory, entry.getName() ) ) {
 				files.add( entry );
 			}
-			
+
 			// If the file is a directory and the recurse flag
 			// is set, recurse into the directory
 			if( recurse && entry.isDirectory() ) {
 				files.addAll( listDirectoryFiles( entry, filter, recurse ) );
 			}
 		}
-		
+
 		// Return collection of files
 		return files;
 	}
-	
+
 }
