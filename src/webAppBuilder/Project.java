@@ -23,7 +23,7 @@ public class Project {
 	 *
 	 * @param projectFile
 	 * @param buildOptions
-	 * @return
+	 * @return The Project representation of the JSON.
 	 * @throws Exception
 	 */
 	public static Project fromFile( File projectFile, BuildOptions buildOptions ) throws Exception {
@@ -46,7 +46,7 @@ public class Project {
 
 	/**
 	 * Creates a new Project. A Project encapsulates {@link Package Packages}, and {@link Package Packages}
-	 * encapsulate {@link Include Include Directives}.
+	 * encapsulate {@link webAppBuilder.include.Include Include Directives}.
 	 *
 	 * @param name
 	 * @param licenseText

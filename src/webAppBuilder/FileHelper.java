@@ -3,6 +3,9 @@ package webAppBuilder;
 import java.util.*;
 import java.io.*;
 
+/**
+ * Encapsulates generalized file operations that the WebAppBuilder application uses.
+ */
 public class FileHelper {
 
 	/**
@@ -65,11 +68,10 @@ public class FileHelper {
 
 	/**
 	 * Given a filename or pathname string, adds the given suffix before the file extension,
-	 * and returns the new string.
+	 * and returns the new filename/pathname string.
 	 *
 	 * @param filename
 	 * @param suffix
-	 * @return
 	 */
 	public static String insertFileSuffix( String filename, String suffix ) {
 		int endOfDot = filename.lastIndexOf( "." );
@@ -82,18 +84,23 @@ public class FileHelper {
 
 	/**
 	 * Lists the files in a given directory, with an optional filter, and the option of recursing into
-	 * the subdirectories.
+	 * subdirectories.
 	 *
 	 * @param directory The directory to list files from.
 	 * @param filter A filter to use to only accept certain files. Set to null for no filter.
 	 * @param recurse True to recurse the directory's subdirectories.
 	 * @return The Collection of files.
+	 * @throws FileNotFoundException If the directory provided does not exist, or is not a directory (it is a file).
 	 */
-	public static Collection<File> listDirectoryFiles( File directory, FilenameFilter filter, boolean recurse ) {
+	public static Collection<File> listDirectoryFiles( File directory, FilenameFilter filter, boolean recurse ) throws FileNotFoundException {
 		List<File> files = new ArrayList<File>();
 
 		// Get files / directories in the directory
 		File[] entries = directory.listFiles();
+
+		if( entries == null ) {
+			throw new FileNotFoundException( "The directory '" + directory.getAbsolutePath() + "' could not be found" );
+		}
 
 		// Go over entries
 		for( File entry : entries ) {

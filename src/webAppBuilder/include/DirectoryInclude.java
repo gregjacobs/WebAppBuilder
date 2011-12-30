@@ -4,6 +4,8 @@ import java.util.*;
 import java.io.*;
 import webAppBuilder.FileHelper;
 import webAppBuilder.BuildOptions;
+import webAppBuilder.BuildFileException;
+import webAppBuilder.pkg.Package;
 
 
 /**
@@ -19,7 +21,9 @@ public class DirectoryInclude extends Include {
 	/**
 	 * Creates a "directory include" directive.
 	 */
-	public DirectoryInclude( String directory, BuildOptions buildOptions, String fileExtension ) {
+	public DirectoryInclude( Package pkg, String directory, BuildOptions buildOptions, String fileExtension ) {
+		super( pkg );
+
 		this.directory = new File( directory );
 
 		// If the directory is a relative path, we must add the build.json file's directory,
@@ -35,10 +39,18 @@ public class DirectoryInclude extends Include {
 
 	/**
 	 * Retrieves the collection of files that the DirectoryInclude represents.
+	 *
+	 * @return The Collection of files in the directory.
+	 * @throws BuildFileException If the directory that is referred to by this include does not exist.
 	 */
 	@Override
 	public Collection<File> getFiles() {
-		return FileHelper.listDirectoryFiles( directory, new ExtensionFilenameFilter(), /* recurse */ false );
+		try {
+			return FileHelper.listDirectoryFiles( directory, new ExtensionFilenameFilter(), /* recurse */ false );
+
+		} catch( FileNotFoundException ex ) {
+			throw new BuildFileException( "The directory referred to by a 'directory' include in the package '" + pkg.getName() + "' was not found. See cause.", ex );
+		}
 	}
 
 	/**

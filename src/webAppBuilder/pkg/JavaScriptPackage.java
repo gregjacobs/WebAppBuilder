@@ -8,10 +8,17 @@ import org.mozilla.javascript.*;
 import com.yahoo.platform.yui.compressor.*;
 
 /**
- * A package of JavaScript files to be concatenated and minified.
+ * Represents a package of JavaScript files to be concatenated and minified.
  */
 public class JavaScriptPackage extends Package {
-	
+
+	/**
+	 * Creates a JavaScriptPackage.
+	 */
+	public JavaScriptPackage( String name, String filename, BuildOptions buildOptions ) {
+		super( name, filename, buildOptions );
+	}
+
 	/**
 	 * Creates a JavaScriptPackage.
 	 */

@@ -8,10 +8,17 @@ import org.mozilla.javascript.*;
 import com.yahoo.platform.yui.compressor.*;
 
 /**
- * A package of CSS files to be concatenated and minified.
+ * Represents a package of CSS files to be concatenated and minified.
  */
 public class CSSPackage extends Package {
-	
+
+	/**
+	 * Creates a CssPackage.
+	 */
+	public CSSPackage( String name, String filename, BuildOptions buildOptions ) {
+		super( name, filename, buildOptions );
+	}
+
 	/**
 	 * Creates a CssPackage.
 	 */
