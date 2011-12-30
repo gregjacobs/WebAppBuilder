@@ -7,7 +7,7 @@ This project was originally based on Sencha's JSBuilder2 tool (http://extjs.com/
 
 I had originally intended to simply add the feature for managing dependent files with directory includes into JSBuilder2, but after going over the original code, I decided to rewrite it entirely top to bottom. 
 
-Because of this full rewrite, I decided to make a new project entirely which is based on the original idea, but includes complete reorganization, simplification, and added features. It is also much faster than the JSBuilder2 implementation, which did a lot of unnecessary intermediate file operations. The original JSBuilder2 project was also fairly specific for the ExtJS build process, whereas this project aims to be generalized. And because JSBuilder2 seems to be replaced by JSBuilder3 for ExtJS, there is very little chance that the JSBuilder2 line will receive any updates from Sencha, which is another reason for starting a new project. The original source for JSBuilder2 is still included in this project however, under lib/com/extjs/.
+Because of this full rewrite, I decided to make a new project entirely which is based on the original idea, but includes complete reorganization, simplification, better error messages ("NullPointerException" is unacceptable), and added features. It is also much faster than the JSBuilder2 implementation, which did a lot of unnecessary intermediate I/O operations. The original JSBuilder2 project was also fairly specific for the ExtJS build process, whereas this project aims to be generalized. And because JSBuilder2 seems to be replaced by JSBuilder3 for ExtJS, there is very little chance that the JSBuilder2 line will receive any updates from Sencha, which is another reason for starting a new project. The original source for JSBuilder2 is still included in this project however, under lib/com/extjs/.
 
 The main reason for this project in general though was that I could not find any static build tool that provided dependency management, while also allowing the inclusion of a directory. It seemed you either could include all .js files in a directory (in whichever order the directory listing would provide), or you had to include them each manually, one at a time to be in the correct order. I personally liked the approach that the Ruby project [Sprockets](https://github.com/sstephenson/sprockets) had taken for JavaScript dependency management, using include/require "directives", so I decided to create something similar that didn't need to be served by a Rails project, or a server at all. Just a simple, Java based build tool that could build the files. 
 
@@ -90,7 +90,7 @@ which files should be built.
 - name:         String describing the package 
 - filename:     String specifying the file name to create. Can be a full path
                 from the output directory specified on the command line.
-                Ex: "build.js"
+                Ex: "build.js", "build/combined.js", etc.
 - includes:     An array of **Include Directives** which need to be included in this
                 package.
 
@@ -102,19 +102,25 @@ Can be one of 3 types:
 1) File include. Keys:
 
    - **file**:      A relative path to a particular file that should be included.
+                    This file is relative to the location of the build.json file,
+                    but may be an absolute path as well.
 
 2) Directory include, which is a single, non-recursed directory. (For a recursed
 directory, use Tree). Keys:
 
    - **directory**: A relative path to a directory of files that should be included.
                 The file extension of the files that are included from the directory 
-                will match the package's file extension.
+                will match the package's file extension. The directory will be relative
+                to the directory in which the build.json file resides, but may be an
+                absolute path as well.
 
 3) Tree include, which is a directory, and all of its subdirectories. Keys:
 
    - **tree**:      A relative path to a directory of files which itself, and all of its
                 subdirectories should be included. The file extension of the files 
-                that are included will match the package's file extension.
+                that are included will match the package's file extension. The directory 
+                will be relative to the directory in which the build.json file resides,
+                but may be an absolute path as well.
 
 
 
