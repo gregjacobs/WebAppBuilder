@@ -192,6 +192,10 @@ public abstract class Package {
 		File debugFile = new File( buildOptions.getOutputDir() + debugFilename );
 		File minifiedFile = new File( buildOptions.getOutputDir() + minifiedFilename );
 
+		// ensure output dirs exist
+		debugFile.mkdirs();
+		minifiedFile.mkdirs();
+
 		// Delete the debugFile and minifiedFile before writing output, so that their generated content never accidentally
 		// gets included in the build files by including a directory or tree that encompasses them. They will be regenerated
 		// directly after.
