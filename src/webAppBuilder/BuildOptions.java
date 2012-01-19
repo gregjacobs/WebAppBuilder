@@ -9,7 +9,7 @@ import java.io.File;
 public class BuildOptions {
 
 	private String buildFileDir;
-    private String outputDir;
+	private String outputDir = "";
 	private Boolean debugOnly;
 	private String debugSuffix;
 	private Boolean minifyOnly;
@@ -34,7 +34,16 @@ public class BuildOptions {
 	}
 	public String getBuildFileDir() { return this.buildFileDir; }
 
-	public void setOutputDir( String outputDir ) { this.outputDir = outputDir; }
+	public void setOutputDir( String outputDir ) { 
+		// normalize the output dir path
+		if( !outputDir.endsWith( File.separator ) ) {
+			outputDir += File.separator;
+		}
+		if( outputDir.startsWith("./" ) ){
+			outputDir.replace("./", "");                    
+		}	
+		this.outputDir = outputDir;
+	}
 	public String getOutputDir() { return this.outputDir; }
 
 	public void setDebugOnly( Boolean debugOnly ) { this.debugOnly = debugOnly; }
